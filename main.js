@@ -2,6 +2,19 @@
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
 
+const url = [
+              'https://google.com',
+              'https://facebook.com',
+              'https://twitter.com',
+              'https://youtube.com',
+              'https://cnn.com',
+              'https://bbc.com',
+              'https://abc.com',
+              'https://paypal.com',
+              'https://github.com',
+              'https://yahoo.com',
+            ]
+
 function createWindow (delay) {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -14,7 +27,10 @@ function createWindow (delay) {
   })
 
   // and load the index.html of the app.
-  mainWindow.loadFile('index.html')
+  // mainWindow.loadFile('index.html')
+  let randomUrl = url[Math.floor(Math.random() * url.length)];
+
+  mainWindow.loadURL(randomUrl)
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
