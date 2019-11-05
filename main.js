@@ -31,7 +31,7 @@ function createThenDestroyWindow (delay) {
 
     createWindow(delay)
 
-    console.log(process.getHeapStatistics())
+    process.getProcessMemoryInfo().then(console.log)
 
   }, delay * 2)
 }
@@ -40,7 +40,7 @@ function createThenDestroyWindow (delay) {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
-  createThenDestroyWindow(500)
+  createThenDestroyWindow(2000)
 })
 
 // Quit when all windows are closed.
