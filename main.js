@@ -32,9 +32,6 @@ function createWindow (delay) {
 
   // and load the index.html of the app.
   // mainWindow.loadFile('index.html')
-  let randomUrl = url[Math.floor(Math.random() * url.length)];
-
-  mainWindow.loadURL(randomUrl)
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
@@ -46,21 +43,26 @@ function createWindow (delay) {
     // when you should delete the corresponding element.
     mainWindow = null
   })
-
-  // Auto-destroy
-  setTimeout(() => {
-    mainWindow.destroy()
-    mainWindow = null
-  }, delay)
 }
 
-function createThenDestroyWindow (delay) {
+function loadRandomUrl () {
+  let randomUrl = url[Math.floor(Math.random() * url.length)];
+
+  mainWindow.loadURL(randomUrl)
+}
+
+function cycleWindow (delay) {
+
+  createWindow(delay)
+
+  console.log('timestamp,private,shared')
 
   setInterval(() => {
 
-    createWindow(delay)
-
-    process.getProcessMemoryInfo().then(console.log)
+    loadRandomUrl()
+    process.getProcessMemoryInfo().then((result) => {
+      console.log(Math.floor(new Date().getTime() / 1000) + ',' + result.private + ',' + result.shared)
+    })
 
   }, delay * 2)
 }
@@ -69,7 +71,7 @@ function createThenDestroyWindow (delay) {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
-  createThenDestroyWindow(2000)
+  cycleWindow(2000)
 })
 
 // Quit when all windows are closed.
