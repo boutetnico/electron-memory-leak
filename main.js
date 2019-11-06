@@ -28,9 +28,7 @@ function createWindow (delay) {
 
   // and load the index.html of the app.
   // mainWindow.loadFile('index.html')
-  let randomUrl = url[Math.floor(Math.random() * url.length)];
-
-  mainWindow.loadURL(randomUrl)
+  loadRandomUrl()
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
@@ -39,6 +37,12 @@ function createWindow (delay) {
   setTimeout(() => {
     mainWindow.destroy()
   }, delay)
+}
+
+function loadRandomUrl () {
+  let randomUrl = url[Math.floor(Math.random() * url.length)];
+
+  mainWindow.loadURL(randomUrl)
 }
 
 function createThenDestroyWindow (delay) {
