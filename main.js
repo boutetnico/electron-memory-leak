@@ -27,11 +27,15 @@ function createWindow (delay) {
 
 function createThenDestroyWindow (delay) {
 
+  console.log('timestamp,private,shared')
+
   setInterval(() => {
 
     createWindow(delay)
 
-    process.getProcessMemoryInfo().then(console.log)
+    process.getProcessMemoryInfo().then((result) => {
+      console.log(Math.floor(new Date().getTime() / 1000) + ',' + result.private + ',' + result.shared)
+    })
 
   }, delay * 2)
 }
